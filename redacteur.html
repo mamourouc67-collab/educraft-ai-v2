@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rédacteur de Cours — EduCraft AI</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="noise"></div>
+
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">
+      <span class="logo-icon">⚡</span>
+      <span>EduCraft <em>AI</em></span>
+    </a>
+    <div class="nav-links">
+      <a href="quiz.html">Quiz</a>
+      <a href="redacteur.html" style="color:var(--accent)">Rédacteur</a>
+      <a href="fiche.html">Fiches</a>
+    </div>
+    <a href="index.html" class="btn-nav">← Accueil</a>
+  </nav>
+
+  <div class="page-wrapper">
+    <div class="page-hero">
+      <div class="page-hero-inner">
+        <div class="section-label">Outil 2 / 3</div>
+        <h1 class="page-title">✍️ Rédacteur de <span class="gradient-text">Cours</span></h1>
+        <p class="page-sub">Génère des cours structurés, complets et pédagogiques en quelques secondes.</p>
+      </div>
+    </div>
+
+    <div class="page-content">
+
+      <div class="error-box" id="error-box">
+        ⚠️ <span id="error-msg">Une erreur est survenue.</span>
+      </div>
+
+      <div class="gen-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="matiere">Matière</label>
+            <input type="text" id="matiere" placeholder="ex: Physique, Littérature, SVT…" />
+          </div>
+          <div class="form-group">
+            <label for="niveau">Niveau scolaire</label>
+            <select id="niveau">
+              <option value="primaire">Primaire (CE1–CM2)</option>
+              <option value="collège">Collège (6e–3e)</option>
+              <option value="lycée" selected>Lycée (2nde–Terminale)</option>
+              <option value="BTS/IUT">BTS / IUT</option>
+              <option value="licence">Licence / Université</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row-full">
+          <div class="form-group">
+            <label for="sujet">Sujet / Titre du cours</label>
+            <input type="text" id="sujet" placeholder="ex: Les lois de Newton, Le romantisme au XIXe siècle…" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="structure">Structure du cours</label>
+            <select id="structure">
+              <option value="standard">Standard (Intro → Dev → Conclusion)</option>
+              <option value="detaille">Détaillé (avec sous-parties)</option>
+              <option value="magistral">Cours magistral complet</option>
+              <option value="simplifie">Simplifié (essentiel seulement)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="longueur">Longueur</label>
+            <select id="longueur">
+              <option value="court">Court (~300 mots)</option>
+              <option value="moyen" selected>Moyen (~600 mots)</option>
+              <option value="long">Long (~1000 mots)</option>
+              <option value="très long">Très long (~1500 mots)</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="exemples">Exemples concrets</label>
+            <select id="exemples">
+              <option value="oui" selected>Oui, inclure des exemples</option>
+              <option value="non">Non, théorie seulement</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="exercices">Exercices d'application</label>
+            <select id="exercices">
+              <option value="oui" selected>Oui, ajouter des exercices</option>
+              <option value="non">Non, cours seulement</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row-full">
+          <div class="form-group">
+            <label for="instructions">Instructions spécifiques (optionnel)</label>
+            <textarea id="instructions" placeholder="ex: Adapter pour des élèves en difficulté, inclure des schémas textuels, aborder en particulier la partie thermodynamique…"></textarea>
+          </div>
+        </div>
+        <button class="btn-generate" id="btn-generate" onclick="genererCours()">
+          <span id="btn-text">⚡ Générer le Cours</span>
+        </button>
+      </div>
+
+      <div class="loading-area" id="loading">
+        <div class="spinner"></div>
+        <p class="loading-text">Rédaction du cours en cours<span class="loading-dots"></span></p>
+      </div>
+
+      <div class="result-area" id="result-area">
+        <div class="result-header">
+          <h3>✅ Cours généré</h3>
+          <button class="btn-copy" id="btn-copy" onclick="copierContenu()">Copier</button>
+        </div>
+        <div class="result-body" id="result-body"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="js/api-client.js"></script>
+  <script src="js/ui.js"></script>
+  <script>
+    async function genererCours() {
+      const matiere    = document.getElementById('matiere').value.trim();
+      const sujet      = document.getElementById('sujet').value.trim();
+      const niveau     = document.getElementById('niveau').value;
+      const structure  = document.getElementById('structure').value;
+      const longueur   = document.getElementById('longueur').value;
+      const exemples   = document.getElementById('exemples').value;
+      const exercices  = document.getElementById('exercices').value;
+      const extra      = document.getElementById('instructions').value.trim();
+
+      if (!matiere || !sujet) {
+        afficherErreur('Veuillez remplir la matière et le sujet du cours.');
+        return;
+      }
+
+      masquerErreur();
+      afficherLoading(true);
+
+      const prompt = `Tu es un professeur expérimenté. Rédige un cours complet selon les paramètres suivants :
+
+Matière : ${matiere}
+Sujet : ${sujet}
+Niveau : ${niveau}
+Structure : ${structure}
+Longueur cible : ${longueur}
+Exemples concrets : ${exemples}
+Exercices d'application : ${exercices === 'oui' ? 'Oui, ajouter 2-3 exercices à la fin' : 'Non'}
+${extra ? `Instructions spécifiques : ${extra}` : ''}
+
+Le cours doit être :
+- Pédagogique et accessible au niveau ${niveau}
+- Bien structuré avec des titres clairs (## pour les sections, ### pour les sous-sections)
+- Incluant les notions fondamentales et les définitions importantes en **gras**
+- Progressif : du simple au complexe
+Commence directement par le contenu du cours sans introduction méta.`;
+
+      try {
+        const contenu = await EduCraftAPI.generer(prompt);
+        afficherResultat(contenu);
+      } catch(e) {
+        afficherErreur(e.message || 'Erreur lors de la génération.');
+      } finally {
+        afficherLoading(false);
+      }
+    }
+  </script>
+</body>
+</html>
