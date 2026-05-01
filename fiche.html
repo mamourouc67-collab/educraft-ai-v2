@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fiches Pédagogiques — EduCraft AI</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="noise"></div>
+
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">
+      <span class="logo-icon">⚡</span>
+      <span>EduCraft <em>AI</em></span>
+    </a>
+    <div class="nav-links">
+      <a href="quiz.html">Quiz</a>
+      <a href="redacteur.html">Rédacteur</a>
+      <a href="fiche.html" style="color:var(--accent)">Fiches</a>
+    </div>
+    <a href="index.html" class="btn-nav">← Accueil</a>
+  </nav>
+
+  <div class="page-wrapper">
+    <div class="page-hero">
+      <div class="page-hero-inner">
+        <div class="section-label">Outil 3 / 3</div>
+        <h1 class="page-title">📋 Fiches <span class="gradient-text">Pédagogiques</span></h1>
+        <p class="page-sub">Génère des fiches de révision condensées avec l'essentiel à retenir.</p>
+      </div>
+    </div>
+
+    <div class="page-content">
+
+      <div class="error-box" id="error-box">
+        ⚠️ <span id="error-msg">Une erreur est survenue.</span>
+      </div>
+
+      <div class="gen-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="matiere">Matière</label>
+            <input type="text" id="matiere" placeholder="ex: Histoire, Chimie, Philosophie…" />
+          </div>
+          <div class="form-group">
+            <label for="niveau">Niveau scolaire</label>
+            <select id="niveau">
+              <option value="primaire">Primaire (CE1–CM2)</option>
+              <option value="collège">Collège (6e–3e)</option>
+              <option value="lycée" selected>Lycée (2nde–Terminale)</option>
+              <option value="BTS/IUT">BTS / IUT</option>
+              <option value="licence">Licence / Université</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row-full">
+          <div class="form-group">
+            <label for="sujet">Sujet de la fiche</label>
+            <input type="text" id="sujet" placeholder="ex: La Seconde Guerre Mondiale, Les acides et bases, L'existentialisme…" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="type-fiche">Type de fiche</label>
+            <select id="type-fiche">
+              <option value="révision">Fiche de révision</option>
+              <option value="mémo">Mémo express (points clés)</option>
+              <option value="definitions">Glossaire de définitions</option>
+              <option value="dates">Fiche chronologique (dates/événements)</option>
+              <option value="formules">Fiche de formules</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="format">Format de sortie</label>
+            <select id="format">
+              <option value="structuré" selected>Structuré (sections claires)</option>
+              <option value="tableau">En tableaux</option>
+              <option value="liste">Listes à puces</option>
+              <option value="mixte">Mixte</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row-full">
+          <div class="form-group">
+            <label for="instructions">Focus particulier (optionnel)</label>
+            <textarea id="instructions" placeholder="ex: Insister sur les causes et conséquences, inclure des dates précises, cibler le chapitre 3 du programme…"></textarea>
+          </div>
+        </div>
+        <button class="btn-generate" id="btn-generate" onclick="genererFiche()">
+          <span id="btn-text">⚡ Générer la Fiche</span>
+        </button>
+      </div>
+
+      <div class="loading-area" id="loading">
+        <div class="spinner"></div>
+        <p class="loading-text">Création de la fiche en cours<span class="loading-dots"></span></p>
+      </div>
+
+      <div class="result-area" id="result-area">
+        <div class="result-header">
+          <h3>✅ Fiche générée</h3>
+          <button class="btn-copy" id="btn-copy" onclick="copierContenu()">Copier</button>
+        </div>
+        <div class="result-body" id="result-body"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="js/api-client.js"></script>
+  <script src="js/ui.js"></script>
+  <script>
+    async function genererFiche() {
+      const matiere   = document.getElementById('matiere').value.trim();
+      const sujet     = document.getElementById('sujet').value.trim();
+      const niveau    = document.getElementById('niveau').value;
+      const typeFiche = document.getElementById('type-fiche').value;
+      const format    = document.getElementById('format').value;
+      const extra     = document.getElementById('instructions').value.trim();
+
+      if (!matiere || !sujet) {
+        afficherErreur('Veuillez remplir la matière et le sujet.');
+        return;
+      }
+
+      masquerErreur();
+      afficherLoading(true);
+
+      const prompt = `Tu es un professeur expert en pédagogie. Crée une fiche pédagogique selon ces paramètres :
+
+Matière : ${matiere}
+Sujet : ${sujet}
+Niveau : ${niveau}
+Type de fiche : ${typeFiche}
+Format : ${format}
+${extra ? `Focus : ${extra}` : ''}
+
+La fiche doit être :
+- Concise et mémorisable (l'essentiel, pas les détails superflus)
+- Organisée avec des sections bien séparées (## pour titres)
+- Avec les termes importants en **gras**
+- Adaptée au niveau ${niveau}
+- Directement utilisable pour réviser
+
+Structure suggérée selon le type "${typeFiche}" :
+- Révision : Points clés / Notions essentielles / À retenir / Pièges à éviter
+- Mémo : Bullet points des 5-10 choses les plus importantes
+- Glossaire : Terme → Définition claire et courte
+- Chronologique : Date | Événement | Importance
+- Formules : Nom | Formule | Conditions d'utilisation
+
+Commence directement par le contenu de la fiche.`;
+
+      try {
+        const contenu = await EduCraftAPI.generer(prompt);
+        afficherResultat(contenu);
+      } catch(e) {
+        afficherErreur(e.message || 'Erreur lors de la génération.');
+      } finally {
+        afficherLoading(false);
+      }
+    }
+  </script>
+</body>
+</html>
+
