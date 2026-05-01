@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EduCraft AI — Générateur de Contenu Pédagogique</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- NOISE OVERLAY -->
+  <div class="noise"></div>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">
+      <span class="logo-icon">⚡</span>
+      <span>EduCraft <em>AI</em></span>
+    </a>
+    <div class="nav-links">
+      <a href="quiz.html">Quiz</a>
+      <a href="redacteur.html">Rédacteur</a>
+      <a href="fiche.html">Fiches</a>
+    </div>
+    <a href="quiz.html" class="btn-nav">Commencer</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="grid-lines"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        Propulsé par Claude AI
+      </div>
+      <h1 class="hero-title">
+        Génère du contenu<br />
+        <span class="gradient-text">pédagogique</span><br />
+        en secondes.
+      </h1>
+      <p class="hero-sub">
+        Quiz, cours, fiches de révision — créés par l'IA,<br />
+        adaptés à ton niveau et ta matière.
+      </p>
+      <div class="hero-cta">
+        <a href="quiz.html" class="btn-primary">Créer un quiz</a>
+        <a href="redacteur.html" class="btn-ghost">Rédiger un cours →</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><strong>3</strong><span>outils IA</span></div>
+        <div class="stat-sep"></div>
+        <div class="stat"><strong>∞</strong><span>contenus générés</span></div>
+        <div class="stat-sep"></div>
+        <div class="stat"><strong>100%</strong><span>gratuit</span></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="card-float card-float-1">
+        <div class="cf-icon">📝</div>
+        <div class="cf-text">
+          <strong>Quiz généré</strong>
+          <span>Mathématiques · Lycée</span>
+        </div>
+        <div class="cf-badge">✓</div>
+      </div>
+      <div class="card-float card-float-2">
+        <div class="cf-icon">📚</div>
+        <div class="cf-text">
+          <strong>Fiche créée</strong>
+          <span>Histoire · Terminale</span>
+        </div>
+        <div class="cf-badge">✓</div>
+      </div>
+      <div class="card-float card-float-3">
+        <div class="cf-icon">✍️</div>
+        <div class="cf-text">
+          <strong>Cours rédigé</strong>
+          <span>Physique · 1ère</span>
+        </div>
+        <div class="cf-badge">✓</div>
+      </div>
+      <div class="terminal-card">
+        <div class="terminal-header">
+          <span class="t-dot t-red"></span>
+          <span class="t-dot t-yellow"></span>
+          <span class="t-dot t-green"></span>
+          <span class="t-title">educraft-ai</span>
+        </div>
+        <div class="terminal-body">
+          <p><span class="t-prompt">›</span> <span class="t-cmd">generate quiz</span></p>
+          <p><span class="t-muted">Matière:</span> <span class="t-val">Mathématiques</span></p>
+          <p><span class="t-muted">Niveau:</span> <span class="t-val">Terminale</span></p>
+          <p><span class="t-muted">Questions:</span> <span class="t-val">10</span></p>
+          <p class="t-output"><span class="t-green-txt">✓</span> Quiz généré en 1.2s</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features">
+    <div class="section-label">Ce qu'on propose</div>
+    <h2 class="section-title">Trois outils,<br /><span class="gradient-text">une seule plateforme.</span></h2>
+    <div class="features-grid">
+
+      <a href="quiz.html" class="feature-card">
+        <div class="fc-top">
+          <div class="fc-icon">🎯</div>
+          <div class="fc-arrow">→</div>
+        </div>
+        <h3>Générateur de Quiz</h3>
+        <p>Crée des quiz à choix multiples, vrai/faux, ou questions ouvertes sur n'importe quelle matière.</p>
+        <div class="fc-tags">
+          <span>QCM</span><span>Vrai/Faux</span><span>Ouvert</span>
+        </div>
+      </a>
+
+      <a href="redacteur.html" class="feature-card feature-card--accent">
+        <div class="fc-top">
+          <div class="fc-icon">✍️</div>
+          <div class="fc-arrow">→</div>
+        </div>
+        <h3>Rédacteur de Cours</h3>
+        <p>Génère des cours structurés avec introduction, développement, exemples et conclusion.</p>
+        <div class="fc-tags">
+          <span>Structure</span><span>Exemples</span><span>Résumé</span>
+        </div>
+      </a>
+
+      <a href="fiche.html" class="feature-card">
+        <div class="fc-top">
+          <div class="fc-icon">📋</div>
+          <div class="fc-arrow">→</div>
+        </div>
+        <h3>Fiches Pédagogiques</h3>
+        <p>Produit des fiches de révision condensées avec les points clés, définitions et dates importantes.</p>
+        <div class="fc-tags">
+          <span>Révision</span><span>Synthèse</span><span>Mémo</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how">
+    <div class="section-label">Comment ça marche</div>
+    <h2 class="section-title">Simple comme<br /><span class="gradient-text">1 — 2 — 3</span></h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <h3>Choisis ton outil</h3>
+          <p>Quiz, cours ou fiche — sélectionne ce dont tu as besoin pour ta session.</p>
+        </div>
+      </div>
+      <div class="step-arrow">⟶</div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <h3>Renseigne ta matière</h3>
+          <p>Entre le sujet, ton niveau scolaire et les instructions spécifiques.</p>
+        </div>
+      </div>
+      <div class="step-arrow">⟶</div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <h3>L'IA génère</h3>
+          <p>En quelques secondes, ton contenu personnalisé est prêt à utiliser.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <span class="logo-icon">⚡</span>
+        <span>EduCraft <em>AI</em></span>
+      </div>
+      <p class="footer-sub">Application éducative IA — Propulsée par Claude Anthropic</p>
+      <div class="footer-links">
+        <a href="quiz.html">Quiz</a>
+        <a href="redacteur.html">Rédacteur</a>
+        <a href="fiche.html">Fiches</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/ui.js"></script>
+</body>
+</html>
+
