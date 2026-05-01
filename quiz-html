@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Générateur de Quiz — EduCraft AI</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="noise"></div>
+
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">
+      <span class="logo-icon">⚡</span>
+      <span>EduCraft <em>AI</em></span>
+    </a>
+    <div class="nav-links">
+      <a href="quiz.html" style="color:var(--accent)">Quiz</a>
+      <a href="redacteur.html">Rédacteur</a>
+      <a href="fiche.html">Fiches</a>
+    </div>
+    <a href="index.html" class="btn-nav">← Accueil</a>
+  </nav>
+
+  <div class="page-wrapper">
+    <div class="page-hero">
+      <div class="page-hero-inner">
+        <div class="section-label">Outil 1 / 3</div>
+        <h1 class="page-title">🎯 Générateur de <span class="gradient-text">Quiz</span></h1>
+        <p class="page-sub">Crée des quiz personnalisés en quelques secondes grâce à l'IA.</p>
+      </div>
+    </div>
+
+    <div class="page-content">
+
+      <div class="error-box" id="error-box">
+        ⚠️ <span id="error-msg">Une erreur est survenue.</span>
+      </div>
+
+      <!-- FORM -->
+      <div class="gen-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="matiere">Matière</label>
+            <input type="text" id="matiere" placeholder="ex: Mathématiques, Histoire…" />
+          </div>
+          <div class="form-group">
+            <label for="niveau">Niveau scolaire</label>
+            <select id="niveau">
+              <option value="primaire">Primaire (CE1–CM2)</option>
+              <option value="collège">Collège (6e–3e)</option>
+              <option value="lycée" selected>Lycée (2nde–Terminale)</option>
+              <option value="BTS/IUT">BTS / IUT</option>
+              <option value="licence">Licence / Université</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="sujet">Sujet précis</label>
+            <input type="text" id="sujet" placeholder="ex: Les fonctions dérivées, La Révolution française…" />
+          </div>
+          <div class="form-group">
+            <label for="nb-questions">Nombre de questions</label>
+            <select id="nb-questions">
+              <option value="5">5 questions</option>
+              <option value="10" selected>10 questions</option>
+              <option value="15">15 questions</option>
+              <option value="20">20 questions</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="type-quiz">Type de quiz</label>
+            <select id="type-quiz">
+              <option value="QCM">QCM (4 choix)</option>
+              <option value="vrai-faux">Vrai / Faux</option>
+              <option value="ouvert">Questions ouvertes</option>
+              <option value="mixte">Mixte</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="difficulte">Difficulté</label>
+            <select id="difficulte">
+              <option value="facile">Facile</option>
+              <option value="moyen" selected>Moyen</option>
+              <option value="difficile">Difficile</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row-full">
+          <div class="form-group">
+            <label for="instructions">Instructions supplémentaires (optionnel)</label>
+            <textarea id="instructions" placeholder="ex: Inclure des questions sur la cinématique, éviter les calculs complexes…"></textarea>
+          </div>
+        </div>
+        <button class="btn-generate" id="btn-generate" onclick="genererQuiz()">
+          <span id="btn-text">⚡ Générer le Quiz</span>
+        </button>
+      </div>
+
+      <!-- LOADING -->
+      <div class="loading-area" id="loading">
+        <div class="spinner"></div>
+        <p class="loading-text">Génération du quiz en cours<span class="loading-dots"></span></p>
+      </div>
+
+      <!-- RESULT -->
+      <div class="result-area" id="result-area">
+        <div class="result-header">
+          <h3>✅ Quiz généré</h3>
+          <button class="btn-copy" id="btn-copy" onclick="copierContenu()">Copier</button>
+        </div>
+        <div class="result-body" id="result-body"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="js/api-client.js"></script>
+  <script src="js/ui.js"></script>
+  <script>
+    async function genererQuiz() {
+      const matiere   = document.getElementById('matiere').value.trim();
+      const sujet     = document.getElementById('sujet').value.trim();
+      const niveau    = document.getElementById('niveau').value;
+      const nb        = document.getElementById('nb-questions').value;
+      const type      = document.getElementById('type-quiz').value;
+      const diff      = document.getElementById('difficulte').value;
+      const extra     = document.getElementById('instructions').value.trim();
+
+      if (!matiere || !sujet) {
+        afficherErreur('Veuillez remplir la matière et le sujet.');
+        return;
+      }
+
+      masquerErreur();
+      afficherLoading(true);
+
+      const prompt = `Tu es un professeur expert. Crée un quiz de ${nb} questions en ${type} sur le sujet suivant :
+
+Matière : ${matiere}
+Sujet : ${sujet}
+Niveau : ${niveau}
+Difficulté : ${diff}
+${extra ? `Instructions supplémentaires : ${extra}` : ''}
+
+Pour chaque question :
+- Numérotée clairement (Question 1, Question 2, etc.)
+- Pour les QCM : 4 options labelisées A, B, C, D avec la bonne réponse indiquée à la fin
+- Pour Vrai/Faux : la réponse à la fin
+- Pour questions ouvertes : une réponse modèle détaillée
+Formate proprement avec des séparations claires entre les questions.`;
+
+      try {
+        const contenu = await EduCraftAPI.generer(prompt);
+        afficherResultat(contenu);
+      } catch(e) {
+        afficherErreur(e.message || 'Erreur lors de la génération.');
+      } finally {
+        afficherLoading(false);
+      }
+    }
+  </script>
+</body>
+</html>
