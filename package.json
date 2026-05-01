@@ -1,0 +1,14 @@
+{
+  "name": "educraft-ai",
+  "version": "1.0.0",
+  "description": "Application éducative IA pour générer cours, quiz et fiches pédagogiques",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod"
+  },
+  "keywords": ["education", "ai", "quiz", "cours", "pédagogie"],
+  "license": "MIT"
+}
