@@ -1,174 +1,1054 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EduCraft AI — Générateur de Contenu Pédagogique</title>
-  <link rel="stylesheet" href="css/style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EduCraft AI — Solution à Vos Besoins</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #F5A623;
+    --gold-light: #FFD166;
+    --bg: #0A0A0A;
+    --bg2: #111111;
+    --bg3: #1A1A1A;
+    --card: #161616;
+    --border: #2A2A2A;
+    --text: #F0F0F0;
+    --muted: #888;
+    --guinea-red: #CE1126;
+    --guinea-yellow: #FCD116;
+    --guinea-green: #009A44;
+    --orange-money: #FF6600;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 { font-family: 'Syne', sans-serif; }
+
+  /* ===== TOP BANNER ===== */
+  .guinea-banner {
+    height: 4px;
+    background: linear-gradient(90deg, var(--guinea-red) 33.33%, var(--guinea-yellow) 33.33%, var(--guinea-yellow) 66.66%, var(--guinea-green) 66.66%);
+  }
+
+  /* ===== NAV ===== */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.2rem;
+    color: var(--gold);
+    text-decoration: none;
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  .nav-links {
+    display: flex; gap: 24px; list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--gold); }
+
+  .nav-cta {
+    background: var(--gold);
+    color: #000;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+  }
+  .nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+  /* ===== HERO ===== */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    text-align: center;
+    padding: 80px 24px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(245,166,35,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(245,166,35,0.12);
+    border: 1px solid rgba(245,166,35,0.3);
+    border-radius: 100px;
+    padding: 6px 16px;
+    font-size: 0.8rem;
+    color: var(--gold);
+    margin-bottom: 32px;
+    animation: fadeDown 0.6s ease both;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.4rem, 8vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 24px;
+    animation: fadeDown 0.6s 0.1s ease both;
+  }
+
+  .hero h1 span { color: var(--gold); }
+
+  .hero p {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 520px;
+    margin-bottom: 40px;
+    animation: fadeDown 0.6s 0.2s ease both;
+  }
+
+  .hero-btns {
+    display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;
+    animation: fadeDown 0.6s 0.3s ease both;
+  }
+
+  .btn-primary {
+    background: var(--gold);
+    color: #000;
+    padding: 14px 28px;
+    border-radius: 10px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(245,166,35,0.35); }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--text);
+    padding: 14px 28px;
+    border-radius: 10px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s, transform 0.15s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-secondary:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+  .hero-stats {
+    display: flex; gap: 40px; margin-top: 60px;
+    animation: fadeDown 0.6s 0.4s ease both;
+  }
+
+  .stat { text-align: center; }
+  .stat-num { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; color: var(--gold); }
+  .stat-label { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+
+  /* ===== TERMINAL DEMO ===== */
+  .terminal {
+    background: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 12px;
+    padding: 20px;
+    max-width: 500px;
+    width: 100%;
+    margin: 48px auto 0;
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    animation: fadeDown 0.6s 0.5s ease both;
+  }
+
+  .terminal-bar {
+    display: flex; gap: 6px; margin-bottom: 16px;
+  }
+  .dot { width: 12px; height: 12px; border-radius: 50%; }
+  .dot-r { background: #ff5f57; }
+  .dot-y { background: #febc2e; }
+  .dot-g { background: #28c840; }
+
+  .t-line { color: #58a6ff; margin-bottom: 4px; }
+  .t-line span { color: #7ee787; }
+  .t-result { color: #e6edf3; }
+  .t-muted { color: #6e7681; }
+
+  /* ===== SECTIONS ===== */
+  section { padding: 80px 24px; max-width: 900px; margin: 0 auto; }
+
+  .section-label {
+    font-size: 0.75rem;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+
+  .section-title span { color: var(--gold); }
+
+  .section-sub {
+    color: var(--muted);
+    font-size: 1.05rem;
+    max-width: 520px;
+    margin-bottom: 48px;
+  }
+
+  /* ===== CARDS GRID ===== */
+  .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+  .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .card:hover {
+    border-color: rgba(245,166,35,0.4);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+  }
+
+  .card-icon {
+    font-size: 2rem;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .card h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--gold);
+  }
+
+  .card p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+
+  .card-tags {
+    display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px;
+  }
+
+  .tag {
+    background: rgba(245,166,35,0.1);
+    border: 1px solid rgba(245,166,35,0.2);
+    color: var(--gold);
+    font-size: 0.72rem;
+    padding: 3px 10px;
+    border-radius: 100px;
+    font-weight: 500;
+  }
+
+  .badge-popular {
+    background: var(--gold);
+    color: #000;
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 100px;
+    margin-left: 8px;
+    vertical-align: middle;
+    font-family: 'Syne', sans-serif;
+  }
+
+  /* ===== TOOLS SECTION ===== */
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 14px;
+  }
+
+  .tool-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+    display: flex; align-items: flex-start; gap: 14px;
+    transition: border-color 0.2s, transform 0.2s;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .tool-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-2px);
+  }
+
+  .tool-icon { font-size: 1.6rem; flex-shrink: 0; }
+
+  .tool-info h4 { font-size: 0.95rem; font-weight: 700; color: var(--gold); margin-bottom: 3px; }
+  .tool-info p { font-size: 0.78rem; color: var(--muted); }
+
+  /* ===== PRICING ===== */
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+
+  .price-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 32px 28px;
+    position: relative;
+    transition: transform 0.2s;
+  }
+
+  .price-card:hover { transform: translateY(-4px); }
+
+  .price-card.popular {
+    border-color: var(--gold);
+    background: linear-gradient(145deg, #1a1500, var(--card));
+  }
+
+  .popular-badge {
+    position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+    background: var(--gold);
+    color: #000;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.72rem;
+    padding: 4px 16px;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+
+  .price-plan {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+  }
+
+  .price-amount {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.6rem;
+    font-weight: 800;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .price-amount sup { font-size: 1.1rem; vertical-align: super; }
+  .price-sub { font-size: 0.85rem; color: var(--muted); margin-bottom: 24px; }
+
+  .price-features { list-style: none; margin-bottom: 28px; }
+  .price-features li {
+    padding: 7px 0;
+    font-size: 0.88rem;
+    color: #ccc;
+    display: flex; align-items: center; gap: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .price-features li::before { content: '✓'; color: var(--gold); font-weight: 700; font-size: 0.85rem; }
+
+  .price-btn {
+    width: 100%;
+    padding: 14px;
+    border-radius: 10px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    border: none;
+    transition: transform 0.15s, box-shadow 0.2s, background 0.2s;
+  }
+
+  .price-btn-outline {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
+  .price-btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+  .price-btn-gold {
+    background: var(--gold);
+    color: #000;
+  }
+  .price-btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(245,166,35,0.4); }
+
+  /* ===== ORANGE MONEY ===== */
+  .om-section {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 60px 24px;
+  }
+
+  .om-card {
+    background: linear-gradient(135deg, #1a0d00, #1a1a1a);
+    border: 1px solid rgba(255,102,0,0.3);
+    border-radius: 20px;
+    padding: 32px;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .om-header {
+    display: flex; align-items: center; gap: 16px; margin-bottom: 24px;
+  }
+
+  .om-logo {
+    width: 60px; height: 60px;
+    background: var(--orange-money);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 0.85rem;
+    color: #fff;
+    flex-shrink: 0;
+  }
+
+  .om-header h3 { font-size: 1.3rem; font-weight: 800; }
+  .om-header p { font-size: 0.9rem; color: var(--muted); }
+
+  .om-steps {
+    display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 24px;
+  }
+
+  .om-step {
+    background: rgba(255,102,0,0.1);
+    border: 1px solid rgba(255,102,0,0.25);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 0.82rem;
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  .om-step-num {
+    background: var(--orange-money);
+    color: #fff;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.72rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .om-whatsapp {
+    background: rgba(37,211,102,0.1);
+    border: 1px solid rgba(37,211,102,0.25);
+    border-radius: 12px;
+    padding: 18px;
+    display: flex; align-items: flex-start; gap: 14px;
+  }
+
+  .om-whatsapp .wa-icon { font-size: 1.5rem; }
+  .om-whatsapp p { font-size: 0.88rem; color: #ccc; }
+  .om-whatsapp a { color: #25D366; font-weight: 600; }
+
+  /* ===== CREATOR SECTION ===== */
+  .creator-section {
+    padding: 80px 24px;
+    background: var(--bg2);
+  }
+
+  .creator-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 40px;
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .creator-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--guinea-red), var(--guinea-yellow), var(--guinea-green));
+  }
+
+  .creator-avatar {
+    width: 90px; height: 90px;
+    border-radius: 50%;
+    border: 3px solid var(--gold);
+    margin: 0 auto 16px;
+    overflow: hidden;
+    background: var(--bg3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2.5rem;
+  }
+
+  .creator-name {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+
+  .creator-role {
+    font-size: 0.82rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 24px;
+  }
+
+  .creator-quote {
+    background: var(--bg3);
+    border-radius: 12px;
+    padding: 20px;
+    font-style: italic;
+    color: #ccc;
+    margin-bottom: 28px;
+    line-height: 1.7;
+    font-size: 0.95rem;
+  }
+
+  .creator-stats {
+    display: flex; justify-content: center; gap: 24px; flex-wrap: wrap;
+  }
+
+  .c-stat {
+    background: var(--bg3);
+    border-radius: 10px;
+    padding: 14px 20px;
+    text-align: center;
+  }
+
+  .c-stat-num { font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 800; color: var(--gold); }
+  .c-stat-label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+
+  /* ===== SECURITY ===== */
+  .security-grid {
+    display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 32px;
+  }
+
+  .sec-badge {
+    background: rgba(0,154,68,0.1);
+    border: 1px solid rgba(0,154,68,0.25);
+    color: #4ade80;
+    font-size: 0.8rem;
+    padding: 6px 14px;
+    border-radius: 100px;
+    display: flex; align-items: center; gap: 6px;
+  }
+
+  /* ===== HOW IT WORKS ===== */
+  .steps { display: flex; flex-direction: column; gap: 0; position: relative; }
+
+  .step-item {
+    display: flex; gap: 24px; align-items: flex-start;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .step-item:last-child { border-bottom: none; }
+
+  .step-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 3rem;
+    font-weight: 800;
+    color: rgba(245,166,35,0.2);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 60px;
+    text-align: right;
+  }
+
+  .step-content h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 6px; }
+  .step-content p { font-size: 0.9rem; color: var(--muted); }
+
+  /* ===== MODAL OVERLAY ===== */
+  .modal-overlay {
+    display: none;
+    position: fixed; inset: 0; z-index: 1000;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(8px);
+    align-items: center; justify-content: center;
+    padding: 24px;
+  }
+
+  .modal-overlay.active { display: flex; }
+
+  .modal {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 32px;
+    max-width: 700px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    animation: scaleIn 0.25s ease;
+  }
+
+  .modal-close {
+    position: absolute; top: 16px; right: 16px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .modal-close:hover { color: var(--text); border-color: var(--text); }
+
+  .modal h2 { font-size: 1.5rem; font-weight: 800; margin-bottom: 8px; }
+  .modal .modal-sub { color: var(--muted); font-size: 0.9rem; margin-bottom: 24px; }
+
+  /* ===== FORMS ===== */
+  .form-group { margin-bottom: 18px; }
+  .form-group label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #ccc;
+    margin-bottom: 8px;
+  }
+
+  .form-group select,
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    transition: border-color 0.2s;
+    outline: none;
+    resize: none;
+  }
+
+  .form-group select:focus,
+  .form-group input:focus,
+  .form-group textarea:focus { border-color: var(--gold); }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  .form-submit {
+    width: 100%;
+    background: var(--gold);
+    color: #000;
+    border: none;
+    padding: 14px;
+    border-radius: 10px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .form-submit:hover { background: var(--gold-light); transform: translateY(-1px); }
+  .form-submit:disabled { background: #555; color: #888; cursor: not-allowed; transform: none; }
+
+  /* ===== RESULT BOX ===== */
+  .result-box {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 20px;
+    display: none;
+  }
+
+  .result-box.active { display: block; }
+
+  .result-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 16px;
+  }
+
+  .result-header h4 {
+    font-size: 1rem;
+    color: var(--gold);
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  .copy-btn {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .copy-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+  .result-content {
+    white-space: pre-wrap;
+    font-size: 0.88rem;
+    line-height: 1.7;
+    color: #ddd;
+    max-height: 400px;
+    overflow-y: auto;
+  }
+
+  /* ===== LOADING ===== */
+  .loading {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 32px;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  .loading.active { display: flex; }
+
+  .spinner {
+    width: 36px; height: 36px;
+    border: 3px solid var(--border);
+    border-top-color: var(--gold);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    padding: 48px 24px 32px;
+    text-align: center;
+  }
+
+  .footer-brand {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .footer-tagline {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-bottom: 24px;
+  }
+
+  .footer-sig {
+    font-style: italic;
+    color: var(--gold);
+    font-size: 0.9rem;
+    margin-bottom: 32px;
+  }
+
+  .footer-links {
+    display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; margin-bottom: 24px;
+  }
+
+  .footer-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--gold); }
+
+  .footer-copy { color: #555; font-size: 0.78rem; }
+
+  /* ===== AUTH FORMS ===== */
+  .auth-tabs {
+    display: flex; gap: 4px;
+    background: var(--bg3);
+    border-radius: 10px;
+    padding: 4px;
+    margin-bottom: 24px;
+  }
+
+  .auth-tab {
+    flex: 1; padding: 10px;
+    border: none; background: transparent;
+    color: var(--muted);
+    border-radius: 8px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .auth-tab.active {
+    background: var(--gold);
+    color: #000;
+  }
+
+  /* ===== ANIMATIONS ===== */
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.94); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 600px) {
+    .nav-links { display: none; }
+    .hero-stats { gap: 20px; }
+    .form-row { grid-template-columns: 1fr; }
+    .creator-stats { gap: 12px; }
+    .c-stat { padding: 10px 16px; }
+  }
+
+  /* ===== SCROLL ANIMATIONS ===== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* Quiz specific */
+  .quiz-question {
+    background: var(--bg3);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+
+  .quiz-question h4 { font-size: 1rem; margin-bottom: 14px; color: var(--text); }
+
+  .quiz-options { display: flex; flex-direction: column; gap: 8px; }
+
+  .quiz-option {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    font-size: 0.9rem;
+    text-align: left;
+    color: var(--text);
+    width: 100%;
+  }
+
+  .quiz-option:hover { border-color: var(--gold); background: rgba(245,166,35,0.06); }
+  .quiz-option.correct { border-color: #22c55e; background: rgba(34,197,94,0.1); color: #22c55e; }
+  .quiz-option.wrong { border-color: #ef4444; background: rgba(239,68,68,0.1); color: #ef4444; }
+</style>
 </head>
 <body>
 
-  <!-- NOISE OVERLAY -->
-  <div class="noise"></div>
+<div class="guinea-banner"></div>
 
-  <!-- NAV -->
-  <nav class="nav">
-    <a href="index.html" class="nav-logo">
-      <span class="logo-icon">⚡</span>
-      <span>EduCraft <em>AI</em></span>
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">⚡ EduCraft <em>AI</em></a>
+  <ul class="nav-links">
+    <li><a href="#outils">Outils</a></li>
+    <li><a href="#tarifs">Tarifs</a></li>
+    <li><a href="#paiement">Paiement</a></li>
+    <li><a href="#createur">À propos</a></li>
+  </ul>
+  <button class="nav-cta" onclick="openAuth()">Commencer →</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">🇬🇳 Propulsé par Claude AI · Fait pour la Guinée</div>
+  <h1>Génère du contenu<br><span>pédagogique</span><br>en secondes.</h1>
+  <p>Quiz, cours, fiches, scripts, CV — créés par l'IA, adaptés à ton niveau et ta matière. 100% gratuit pour commencer.</p>
+  <div class="hero-btns">
+    <button class="btn-primary" onclick="openTool('quiz')">🎯 Créer un quiz</button>
+    <button class="btn-secondary" onclick="openTool('redacteur')">✍️ Rédiger un cours →</button>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">500+</div><div class="stat-label">Utilisateurs</div></div>
+    <div class="stat"><div class="stat-num">20+</div><div class="stat-label">Outils IA</div></div>
+    <div class="stat"><div class="stat-num">4.9★</div><div class="stat-label">Note</div></div>
+  </div>
+
+  <div class="terminal">
+    <div class="terminal-bar">
+      <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+    </div>
+    <div class="t-line">› <span>generate quiz</span></div>
+    <div class="t-result">Matière: Mathématiques</div>
+    <div class="t-result">Niveau: Terminale</div>
+    <div class="t-result">Questions: 10</div>
+    <div class="t-muted">⠋ Génération en cours...</div>
+    <div class="t-line" style="margin-top:8px">✓ <span>Quiz généré en 1.2s</span></div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section id="pourquoi" class="reveal">
+  <div class="section-label">Pourquoi nous choisir</div>
+  <h2 class="section-title">Solution à <span>Vos Besoins</span></h2>
+  <p class="section-sub">Pensée pour la réalité guinéenne, accessible à tous.</p>
+  <div class="grid-3">
+    <div class="card">
+      <span class="card-icon">🎬</span>
+      <h3>Créateurs de Contenu</h3>
+      <p>Générateur de scripts, idées de contenu, captions pour réseaux sociaux, calendrier éditorial.</p>
+      <div class="card-tags"><span class="tag">YouTube</span><span class="tag">TikTok</span><span class="tag">Instagram</span></div>
+    </div>
+    <div class="card">
+      <span class="card-icon">🎓</span>
+      <h3>Enseignants</h3>
+      <p>Créateur de cours, quiz interactifs, plans de leçon, fiches pédagogiques et évaluations.</p>
+      <div class="card-tags"><span class="tag">Cours</span><span class="tag">Quiz</span><span class="tag">Fiches</span></div>
+    </div>
+    <div class="card">
+      <span class="card-icon">📚</span>
+      <h3>Élèves & Étudiants</h3>
+      <p>Aide aux devoirs, résumés intelligents, fiches de révision, traduction et explication.</p>
+      <div class="card-tags"><span class="tag">Révision</span><span class="tag">Résumé</span><span class="tag">Traduction</span></div>
+    </div>
+    <div class="card">
+      <span class="card-icon">💼</span>
+      <h3>Professionnels</h3>
+      <p>CV, lettres de motivation, rapports professionnels, présentations et emails formels.</p>
+      <div class="card-tags"><span class="tag">CV</span><span class="tag">Lettre</span><span class="tag">Rapport</span></div>
+    </div>
+    <div class="card">
+      <span class="card-icon">🔒</span>
+      <h3>Données Sécurisées</h3>
+      <p>Chiffrement de bout en bout. Aucune revente de données. Votre vie privée est protégée.</p>
+      <div class="card-tags"><span class="tag">SSL</span><span class="tag">RGPD</span></div>
+    </div>
+    <div class="card">
+      <span class="card-icon">⚡</span>
+      <h3>Rapide & Accessible</h3>
+      <p>Optimisé pour connexions lentes, fonctionne sur mobile et PC, entièrement en français.</p>
+      <div class="card-tags"><span class="tag">Mobile</span><span class="tag">Hors-ligne</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- OUTILS -->
+<section id="outils" class="reveal" style="max-width:900px">
+  <div class="section-label">Ce qu'on propose</div>
+  <h2 class="section-title">Nos <span>Outils Disponibles</span></h2>
+  <p class="section-sub">Créez un compte pour accéder à tous les outils</p>
+  <div class="tools-grid">
+    <a class="tool-card" href="#" onclick="openTool('redacteur'); return false;">
+      <span class="tool-icon">✍️</span>
+      <div class="tool-info"><h4>Rédacteur IA <span class="badge-popular">POPULAIRE</span></h4><p>Articles, lettres, textes</p></div>
     </a>
-    <div class="nav-links">
-      <a href="quiz.html">Quiz</a>
-      <a href="redacteur.html">Rédacteur</a>
-      <a href="fiche.html">Fiches</a>
-    </div>
-    <a href="quiz.html" class="btn-nav">Commencer</a>
-  </nav>
+    <a class="tool-card" href="#" onclick="openTool('quiz'); return false;">
+      <span class="tool-icon">📝</span>
+      <div class="tool-info"><h4>Quiz Maker</h4><p>Créer des questionnaires</p></div>
+    </a>
+    <a class="tool-card" href="#" onclick="openTool('script'); return false;">
+      <span class="tool-icon">🎙️</span>
+      <div class="tool-info"><h4>Script Créateur</h4><p>YouTube, TikTok, Podcast</p></div>
+    </a>
+    <a class="tool-card" href="#" onclick="openTool('fiches'); return false;">
+      <span class="tool-icon">📋</span>
+      <div class="tool-info"><h4>Fiches Pédagogiques</h4><p>Révision & synthèse</p></div>
+    </a>
+    <a class="tool-card" href="#" onclick="openTool('traducteur'); return false;">
+      <span class="tool-icon">🌐</span>
+      <div class="tool-info"><h4>Traducteur</h4><p>FR, EN, Arabe, Fula</p></div>
+    </a>
+    <a class="tool-card" href="#" onclick="openTool('cv'); return false;">
+      <span class="tool-icon">📄</span>
+      <div class="tool-info"><h4>CV & Lettres</h4><p>Rédaction professionnelle</p></div>
+    </a>
+    <a class="tool-card" href="#" onclick="openTool('resume'); return false;">
+      <span class="tool-icon">📖</span>
+      <div class="tool-info"><h4>Résumeur</h4><p>Résumé de documents</p></div>
+    </a>
+    <a class="tool-card" href="#" onclick="openTool('assistant'); return false;">
+      <span class="tool-icon">🤖</span>
+      <div class="tool-info"><h4>Assistant IA</h4><p>Chat intelligent</p></div>
+    </a>
+  </div>
+</section>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-bg">
-      <div class="orb orb-1"></div>
-      <div class="orb orb-2"></div>
-      <div class="grid-lines"></div>
-    </div>
-    <div class="hero-content">
-      <div class="hero-badge">
-        <span class="badge-dot"></span>
-        Propulsé par Claude AI
-      </div>
-      <h1 class="hero-title">
-        Génère du contenu<br />
-        <span class="gradient-text">pédagogique</span><br />
-        en secondes.
-      </h1>
-      <p class="hero-sub">
-        Quiz, cours, fiches de révision — créés par l'IA,<br />
-        adaptés à ton niveau et ta matière.
-      </p>
-      <div class="hero-cta">
-        <a href="quiz.html" class="btn-primary">Créer un quiz</a>
-        <a href="redacteur.html" class="btn-ghost">Rédiger un cours →</a>
-      </div>
-      <div class="hero-stats">
-        <div class="stat"><strong>3</strong><span>outils IA</span></div>
-        <div class="stat-sep"></div>
-        <div class="stat"><strong>∞</strong><span>contenus générés</span></div>
-        <div class="stat-sep"></div>
-        <div class="stat"><strong>100%</strong><span>gratuit</span></div>
-      </div>
-    </div>
-    <div class="hero-visual">
-      <div class="card-float card-float-1">
-        <div class="cf-icon">📝</div>
-        <div class="cf-text">
-          <strong>Quiz généré</strong>
-          <span>Mathématiques · Lycée</span>
-        </div>
-        <div class="cf-badge">✓</div>
-      </div>
-      <div class="card-float card-float-2">
-        <div class="cf-icon">📚</div>
-        <div class="cf-text">
-          <strong>Fiche créée</strong>
-          <span>Histoire · Terminale</span>
-        </div>
-        <div class="cf-badge">✓</div>
-      </div>
-      <div class="card-float card-float-3">
-        <div class="cf-icon">✍️</div>
-        <div class="cf-text">
-          <strong>Cours rédigé</strong>
-          <span>Physique · 1ère</span>
-        </div>
-        <div class="cf-badge">✓</div>
-      </div>
-      <div class="terminal-card">
-        <div class="terminal-header">
-          <span class="t-dot t-red"></span>
-          <span class="t-dot t-yellow"></span>
-          <span class="t-dot t-green"></span>
-          <span class="t-title">educraft-ai</span>
-        </div>
-        <div class="terminal-body">
-          <p><span class="t-prompt">›</span> <span class="t-cmd">generate quiz</span></p>
-          <p><span class="t-muted">Matière:</span> <span class="t-val">Mathématiques</span></p>
-          <p><span class="t-muted">Niveau:</span> <span class="t-val">Terminale</span></p>
-          <p><span class="t-muted">Questions:</span> <span class="t-val">10</span></p>
-          <p class="t-output"><span class="t-green-txt">✓</span> Quiz généré en 1.2s</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FEATURES -->
-  <section class="features">
-    <div class="section-label">Ce qu'on propose</div>
-    <h2 class="section-title">Trois outils,<br /><span class="gradient-text">une seule plateforme.</span></h2>
-    <div class="features-grid">
-
-      <a href="quiz.html" class="feature-card">
-        <div class="fc-top">
-          <div class="fc-icon">🎯</div>
-          <div class="fc-arrow">→</div>
-        </div>
-        <h3>Générateur de Quiz</h3>
-        <p>Crée des quiz à choix multiples, vrai/faux, ou questions ouvertes sur n'importe quelle matière.</p>
-        <div class="fc-tags">
-          <span>QCM</span><span>Vrai/Faux</span><span>Ouvert</span>
-        </div>
-      </a>
-
-      <a href="redacteur.html" class="feature-card feature-card--accent">
-        <div class="fc-top">
-          <div class="fc-icon">✍️</div>
-          <div class="fc-arrow">→</div>
-        </div>
-        <h3>Rédacteur de Cours</h3>
-        <p>Génère des cours structurés avec introduction, développement, exemples et conclusion.</p>
-        <div class="fc-tags">
-          <span>Structure</span><span>Exemples</span><span>Résumé</span>
-        </div>
-      </a>
-
-      <a href="fiche.html" class="feature-card">
-        <div class="fc-top">
-          <div class="fc-icon">📋</div>
-          <div class="fc-arrow">→</div>
-        </div>
-        <h3>Fiches Pédagogiques</h3>
-        <p>Produit des fiches de révision condensées avec les points clés, définitions et dates importantes.</p>
-        <div class="fc-tags">
-          <span>Révision</span><span>Synthèse</span><span>Mémo</span>
-        </div>
-      </a>
-
-    </div>
-  </section>
-
-  <!-- HOW IT WORKS -->
-  <section class="how">
+<!-- HOW IT WORKS -->
+<section class="reveal" style="background: var(--bg2); max-width:100%; padding: 80px 24px;">
+  <div style="max-width:900px; margin:0 auto;">
     <div class="section-label">Comment ça marche</div>
-    <h2 class="section-title">Simple comme<br /><span class="gradient-text">1 — 2 — 3</span></h2>
+    <h2 class="section-title">Simple comme <span>1 — 2 — 3</span></h2>
     <div class="steps">
-      <div class="step">
+      <div class="step-item">
         <div class="step-num">01</div>
         <div class="step-content">
           <h3>Choisis ton outil</h3>
           <p>Quiz, cours ou fiche — sélectionne ce dont tu as besoin pour ta session.</p>
         </div>
       </div>
-      <div class="step-arrow">⟶</div>
-      <div class="step">
+      <div class="step-item">
         <div class="step-num">02</div>
         <div class="step-content">
           <h3>Renseigne ta matière</h3>
           <p>Entre le sujet, ton niveau scolaire et les instructions spécifiques.</p>
         </div>
       </div>
-      <div class="step-arrow">⟶</div>
-      <div class="step">
+      <div class="step-item">
         <div class="step-num">03</div>
         <div class="step-content">
           <h3>L'IA génère</h3>
@@ -176,25 +1056,870 @@
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="footer-inner">
-      <div class="footer-logo">
-        <span class="logo-icon">⚡</span>
-        <span>EduCraft <em>AI</em></span>
-      </div>
-      <p class="footer-sub">Application éducative IA — Propulsée par Claude Anthropic</p>
-      <div class="footer-links">
-        <a href="quiz.html">Quiz</a>
-        <a href="redacteur.html">Rédacteur</a>
-        <a href="fiche.html">Fiches</a>
+<!-- PRICING -->
+<section id="tarifs" class="reveal">
+  <div class="section-label">Nos Tarifs</div>
+  <h2 class="section-title">Prix adaptés au <span>marché guinéen</span></h2>
+  <p class="section-sub">Des plans conçus pour tous les budgets.</p>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="price-plan">STARTER</div>
+      <div class="price-amount">55 000 <sup style="font-size:1rem">FG</sup></div>
+      <div class="price-sub">/ mois · Accès de base</div>
+      <ul class="price-features">
+        <li>5 outils disponibles</li>
+        <li>50 générations / mois</li>
+        <li>Support WhatsApp</li>
+        <li>1 appareil</li>
+      </ul>
+      <button class="price-btn price-btn-outline" onclick="openPay('Starter - 55 000 FG')">Commencer →</button>
+    </div>
+    <div class="price-card popular">
+      <div class="popular-badge">✦ POPULAIRE</div>
+      <div class="price-plan">STANDARD PRO</div>
+      <div class="price-amount">75 000 <sup style="font-size:1rem">FG</sup></div>
+      <div class="price-sub">/ mois · Le plus populaire</div>
+      <ul class="price-features">
+        <li>Tous les outils (20+)</li>
+        <li>Générations illimitées</li>
+        <li>Support prioritaire</li>
+        <li>3 appareils simultanés</li>
+        <li>Mises à jour gratuites</li>
+      </ul>
+      <button class="price-btn price-btn-gold" onclick="openPay('Standard Pro - 75 000 FG')">Choisir ce plan →</button>
+    </div>
+    <div class="price-card">
+      <div class="price-plan">INSTITUTIONNEL</div>
+      <div class="price-amount" style="font-size:2rem">Sur devis</div>
+      <div class="price-sub">Écoles, ONG, Entreprises</div>
+      <ul class="price-features">
+        <li>Multi-utilisateurs</li>
+        <li>Formation incluse</li>
+        <li>Tableau de bord admin</li>
+        <li>Support dédié</li>
+      </ul>
+      <button class="price-btn price-btn-outline" onclick="openContact()">Contacter →</button>
+    </div>
+  </div>
+</section>
+
+<!-- ORANGE MONEY -->
+<div class="om-section reveal" id="paiement">
+  <div style="max-width:900px; margin:0 auto; text-align:center; margin-bottom:40px;">
+    <h2 class="section-title">Paiement par <span>Orange Money</span></h2>
+    <p style="color:var(--muted)">Simple, rapide et sécurisé depuis votre téléphone</p>
+  </div>
+  <div class="om-card">
+    <div class="om-header">
+      <div class="om-logo">OM</div>
+      <div>
+        <h3>Payez avec Orange Money Guinée</h3>
+        <p>Suivez ces étapes simples pour activer votre abonnement :</p>
       </div>
     </div>
-  </footer>
+    <div class="om-steps">
+      <div class="om-step"><span class="om-step-num">1</span> Composez *144#</div>
+      <div class="om-step"><span class="om-step-num">2</span> Choisir "Transfert"</div>
+      <div class="om-step"><span class="om-step-num">3</span> Numéro : 629 839 854</div>
+      <div class="om-step"><span class="om-step-num">4</span> Montant : 55 000 ou 75 000 FG</div>
+    </div>
+    <div class="om-whatsapp">
+      <span class="wa-icon">💬</span>
+      <p>Envoyez la <strong style="color:#25D366">capture d'écran de confirmation</strong> sur WhatsApp au <a href="https://wa.me/224629839854" target="_blank">+224 629 839 854</a> pour activer votre compte dans les 30 minutes.</p>
+    </div>
+  </div>
+</div>
 
-  <script src="js/ui.js"></script>
+<!-- SECURITY -->
+<section class="reveal" style="text-align:center">
+  <h2 class="section-title">Vos données sont <span>100% protégées</span></h2>
+  <p style="color:var(--muted); max-width:500px; margin: 0 auto 24px;">Chiffrement SSL/TLS de niveau bancaire. Aucune information personnelle n'est partagée ni revendue. Suppression de compte disponible à tout moment.</p>
+  <div class="security-grid">
+    <span class="sec-badge">✓ SSL Chiffré</span>
+    <span class="sec-badge">✓ Aucune revente</span>
+    <span class="sec-badge">✓ Suppression sur demande</span>
+    <span class="sec-badge">✓ RGPD Compliant</span>
+  </div>
+</section>
+
+<!-- CREATOR -->
+<div class="creator-section reveal" id="createur">
+  <div class="creator-card">
+    <div class="creator-avatar">👨‍💻</div>
+    <div class="creator-name">Mamourou Thor</div>
+    <div class="creator-role">Créateur de Contenu Digital 🇬🇳</div>
+    <div class="creator-quote">
+      "J'ai créé cette plateforme pour mettre la technologie au service de la communauté guinéenne — élèves, enseignants et créateurs méritent des outils de qualité."
+    </div>
+    <div class="creator-stats">
+      <div class="c-stat"><div class="c-stat-num">500+</div><div class="c-stat-label">Utilisateurs</div></div>
+      <div class="c-stat"><div class="c-stat-num">20+</div><div class="c-stat-label">Outils</div></div>
+      <div class="c-stat"><div class="c-stat-num">4.9★</div><div class="c-stat-label">Note</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">⚡ EduCraft <em>AI</em></div>
+  <div class="footer-tagline">La plateforme intelligente des créateurs, enseignants et élèves guinéens.</div>
+  <div class="footer-sig">✍️ <em>Signé : Mamourou Thor — Créateur de Contenu Digital 🇬🇳</em></div>
+  <div class="footer-links">
+    <a href="https://wa.me/224629839854" target="_blank">💬 WhatsApp Support</a>
+    <a href="#tarifs">Tarifs</a>
+    <a href="#outils">Outils</a>
+    <a href="#paiement">Paiement</a>
+  </div>
+  <div class="footer-copy">© 2026 EduCraft AI · Solution à Vos Besoins — Faranah, Guinée. Optimisé pour les connexions lentes.</div>
+</footer>
+
+<!-- ============================================================ -->
+<!-- MODALS -->
+<!-- ============================================================ -->
+
+<!-- AUTH MODAL -->
+<div class="modal-overlay" id="modal-auth">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-auth')">✕</button>
+    <div class="auth-tabs">
+      <button class="auth-tab active" onclick="switchTab('login')">Connexion</button>
+      <button class="auth-tab" onclick="switchTab('register')">Inscription</button>
+    </div>
+    <div id="tab-login">
+      <h2>Bon retour 👋</h2>
+      <p class="modal-sub">Connectez-vous pour accéder à vos outils</p>
+      <div class="form-group"><label>Email</label><input type="email" placeholder="votre@email.com" id="login-email"></div>
+      <div class="form-group"><label>Mot de passe</label><input type="password" placeholder="••••••••" id="login-pass"></div>
+      <button class="form-submit" onclick="doLogin()">Se connecter →</button>
+      <p style="text-align:center; margin-top:16px; font-size:0.85rem; color:var(--muted)">Pas de compte ? <a href="#" onclick="switchTab('register')" style="color:var(--gold)">S'inscrire gratuitement</a></p>
+    </div>
+    <div id="tab-register" style="display:none">
+      <h2>Créer un compte 🚀</h2>
+      <p class="modal-sub">Commencez gratuitement, sans carte bancaire</p>
+      <div class="form-row">
+        <div class="form-group"><label>Prénom</label><input type="text" placeholder="Mamadou" id="reg-fname"></div>
+        <div class="form-group"><label>Nom</label><input type="text" placeholder="Diallo" id="reg-lname"></div>
+      </div>
+      <div class="form-group"><label>Email</label><input type="email" placeholder="votre@email.com" id="reg-email"></div>
+      <div class="form-group"><label>Mot de passe</label><input type="password" placeholder="••••••••" id="reg-pass"></div>
+      <button class="form-submit" onclick="doRegister()">Créer mon compte →</button>
+    </div>
+  </div>
+</div>
+
+<!-- QUIZ MODAL -->
+<div class="modal-overlay" id="modal-quiz">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-quiz')">✕</button>
+    <h2>🎯 Générateur de Quiz</h2>
+    <p class="modal-sub">Crée des quiz à choix multiples, vrai/faux ou questions ouvertes</p>
+    <div id="quiz-form">
+      <div class="form-group"><label>Matière</label><input type="text" placeholder="Ex: Mathématiques, Histoire, Physique..." id="quiz-subject"></div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Niveau</label>
+          <select id="quiz-level">
+            <option>CE1 / CE2</option><option>CM1 / CM2</option><option>6ème / 5ème</option><option>4ème / 3ème</option><option>Seconde</option><option>Première</option><option>Terminale</option><option>Université</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Nombre de questions</label>
+          <select id="quiz-count">
+            <option value="5">5 questions</option><option value="10" selected>10 questions</option><option value="15">15 questions</option><option value="20">20 questions</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Type de quiz</label>
+        <select id="quiz-type">
+          <option value="QCM">QCM (choix multiples)</option>
+          <option value="Vrai/Faux">Vrai / Faux</option>
+          <option value="Questions ouvertes">Questions ouvertes</option>
+          <option value="Mixte">Mixte</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Instructions spécifiques (optionnel)</label><textarea rows="2" placeholder="Ex: Focus sur les équations du second degré..." id="quiz-instructions"></textarea></div>
+      <button class="form-submit" id="quiz-submit-btn" onclick="generateQuiz()">⚡ Générer le Quiz</button>
+    </div>
+    <div class="loading" id="quiz-loading"><div class="spinner"></div><span>Génération en cours...</span></div>
+    <div class="result-box" id="quiz-result">
+      <div class="result-header">
+        <h4>✓ Quiz généré</h4>
+        <button class="copy-btn" onclick="copyResult('quiz-result-content')">📋 Copier</button>
+      </div>
+      <div class="result-content" id="quiz-result-content"></div>
+      <button class="form-submit" style="margin-top:16px" onclick="resetTool('quiz')">🔄 Nouveau quiz</button>
+    </div>
+  </div>
+</div>
+
+<!-- REDACTEUR MODAL -->
+<div class="modal-overlay" id="modal-redacteur">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-redacteur')">✕</button>
+    <h2>✍️ Rédacteur de Cours</h2>
+    <p class="modal-sub">Génère des cours structurés avec introduction, développement et conclusion</p>
+    <div id="redacteur-form">
+      <div class="form-group"><label>Sujet / Titre du cours</label><input type="text" placeholder="Ex: La photosynthèse, La Révolution française..." id="cours-subject"></div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Niveau</label>
+          <select id="cours-level">
+            <option>CE1 / CE2</option><option>CM1 / CM2</option><option>6ème / 5ème</option><option>4ème / 3ème</option><option>Seconde</option><option>Première</option><option selected>Terminale</option><option>Université</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Longueur</label>
+          <select id="cours-length">
+            <option value="court">Court (résumé)</option>
+            <option value="moyen" selected>Moyen (standard)</option>
+            <option value="long">Long (détaillé)</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group"><label>Instructions supplémentaires (optionnel)</label><textarea rows="2" placeholder="Ex: Inclure des exemples concrets, ajouter des exercices..." id="cours-instructions"></textarea></div>
+      <button class="form-submit" id="redacteur-submit-btn" onclick="generateCours()">⚡ Rédiger le Cours</button>
+    </div>
+    <div class="loading" id="redacteur-loading"><div class="spinner"></div><span>Rédaction en cours...</span></div>
+    <div class="result-box" id="redacteur-result">
+      <div class="result-header">
+        <h4>✓ Cours rédigé</h4>
+        <button class="copy-btn" onclick="copyResult('redacteur-result-content')">📋 Copier</button>
+      </div>
+      <div class="result-content" id="redacteur-result-content"></div>
+      <button class="form-submit" style="margin-top:16px" onclick="resetTool('redacteur')">🔄 Nouveau cours</button>
+    </div>
+  </div>
+</div>
+
+<!-- FICHES MODAL -->
+<div class="modal-overlay" id="modal-fiches">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-fiches')">✕</button>
+    <h2>📋 Fiches Pédagogiques</h2>
+    <p class="modal-sub">Produit des fiches de révision condensées avec points clés et définitions</p>
+    <div id="fiches-form">
+      <div class="form-group"><label>Sujet de la fiche</label><input type="text" placeholder="Ex: Les fonctions mathématiques, La Seconde Guerre Mondiale..." id="fiche-subject"></div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Niveau</label>
+          <select id="fiche-level">
+            <option>6ème / 5ème</option><option>4ème / 3ème</option><option>Seconde</option><option>Première</option><option selected>Terminale</option><option>Université</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Type de fiche</label>
+          <select id="fiche-type">
+            <option value="révision">Révision</option>
+            <option value="synthèse">Synthèse</option>
+            <option value="mémo">Mémo Express</option>
+            <option value="définitions">Définitions clés</option>
+          </select>
+        </div>
+      </div>
+      <button class="form-submit" id="fiches-submit-btn" onclick="generateFiche()">⚡ Créer la Fiche</button>
+    </div>
+    <div class="loading" id="fiches-loading"><div class="spinner"></div><span>Création en cours...</span></div>
+    <div class="result-box" id="fiches-result">
+      <div class="result-header">
+        <h4>✓ Fiche créée</h4>
+        <button class="copy-btn" onclick="copyResult('fiches-result-content')">📋 Copier</button>
+      </div>
+      <div class="result-content" id="fiches-result-content"></div>
+      <button class="form-submit" style="margin-top:16px" onclick="resetTool('fiches')">🔄 Nouvelle fiche</button>
+    </div>
+  </div>
+</div>
+
+<!-- SCRIPT MODAL -->
+<div class="modal-overlay" id="modal-script">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-script')">✕</button>
+    <h2>🎙️ Script Créateur</h2>
+    <p class="modal-sub">Génère des scripts pour YouTube, TikTok, Podcast et plus</p>
+    <div id="script-form">
+      <div class="form-group"><label>Sujet de ta vidéo / podcast</label><input type="text" placeholder="Ex: Comment réussir son bac en Guinée, Top 5 conseils..." id="script-subject"></div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Plateforme</label>
+          <select id="script-platform">
+            <option>YouTube</option><option>TikTok</option><option>Instagram Reels</option><option>Podcast</option><option>Facebook</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Durée cible</label>
+          <select id="script-duration">
+            <option value="30 secondes">30 secondes</option>
+            <option value="1 minute">1 minute</option>
+            <option value="3 minutes" selected>3 minutes</option>
+            <option value="5-10 minutes">5-10 minutes</option>
+            <option value="15+ minutes">15+ minutes</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group"><label>Ton / Style</label>
+        <select id="script-tone">
+          <option>Éducatif et sérieux</option><option>Dynamique et fun</option><option>Inspirant et motivant</option><option>Humoristique</option>
+        </select>
+      </div>
+      <button class="form-submit" id="script-submit-btn" onclick="generateScript()">⚡ Générer le Script</button>
+    </div>
+    <div class="loading" id="script-loading"><div class="spinner"></div><span>Écriture du script...</span></div>
+    <div class="result-box" id="script-result">
+      <div class="result-header">
+        <h4>✓ Script prêt</h4>
+        <button class="copy-btn" onclick="copyResult('script-result-content')">📋 Copier</button>
+      </div>
+      <div class="result-content" id="script-result-content"></div>
+      <button class="form-submit" style="margin-top:16px" onclick="resetTool('script')">🔄 Nouveau script</button>
+    </div>
+  </div>
+</div>
+
+<!-- TRADUCTEUR MODAL -->
+<div class="modal-overlay" id="modal-traducteur">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-traducteur')">✕</button>
+    <h2>🌐 Traducteur IA</h2>
+    <p class="modal-sub">Traduit et explique en FR, EN, Arabe, Fula et plus</p>
+    <div id="traducteur-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Langue source</label>
+          <select id="trad-from">
+            <option>Français</option><option>Anglais</option><option>Arabe</option><option>Fula (Peul)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Langue cible</label>
+          <select id="trad-to">
+            <option>Anglais</option><option>Français</option><option>Arabe</option><option>Fula (Peul)</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group"><label>Texte à traduire</label><textarea rows="5" placeholder="Entrez votre texte ici..." id="trad-text"></textarea></div>
+      <button class="form-submit" id="traducteur-submit-btn" onclick="generateTraduction()">⚡ Traduire</button>
+    </div>
+    <div class="loading" id="traducteur-loading"><div class="spinner"></div><span>Traduction...</span></div>
+    <div class="result-box" id="traducteur-result">
+      <div class="result-header">
+        <h4>✓ Traduction</h4>
+        <button class="copy-btn" onclick="copyResult('traducteur-result-content')">📋 Copier</button>
+      </div>
+      <div class="result-content" id="traducteur-result-content"></div>
+      <button class="form-submit" style="margin-top:16px" onclick="resetTool('traducteur')">🔄 Nouvelle traduction</button>
+    </div>
+  </div>
+</div>
+
+<!-- CV MODAL -->
+<div class="modal-overlay" id="modal-cv">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-cv')">✕</button>
+    <h2>📄 CV & Lettres</h2>
+    <p class="modal-sub">Génère un CV professionnel ou une lettre de motivation</p>
+    <div id="cv-form">
+      <div class="form-group">
+        <label>Type de document</label>
+        <select id="cv-type">
+          <option value="CV">CV professionnel</option>
+          <option value="lettre de motivation">Lettre de motivation</option>
+          <option value="email professionnel">Email professionnel</option>
+          <option value="rapport">Rapport professionnel</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Nom complet</label><input type="text" placeholder="Ex: Mamadou Diallo" id="cv-name"></div>
+      <div class="form-group"><label>Poste visé / Objectif</label><input type="text" placeholder="Ex: Ingénieur informatique, Enseignant..." id="cv-job"></div>
+      <div class="form-group"><label>Informations complémentaires</label><textarea rows="3" placeholder="Expériences, compétences, diplômes, motivation..." id="cv-info"></textarea></div>
+      <button class="form-submit" id="cv-submit-btn" onclick="generateCV()">⚡ Générer</button>
+    </div>
+    <div class="loading" id="cv-loading"><div class="spinner"></div><span>Rédaction...</span></div>
+    <div class="result-box" id="cv-result">
+      <div class="result-header">
+        <h4>✓ Document prêt</h4>
+        <button class="copy-btn" onclick="copyResult('cv-result-content')">📋 Copier</button>
+      </div>
+      <div class="result-content" id="cv-result-content"></div>
+      <button class="form-submit" style="margin-top:16px" onclick="resetTool('cv')">🔄 Nouveau document</button>
+    </div>
+  </div>
+</div>
+
+<!-- RESUME MODAL -->
+<div class="modal-overlay" id="modal-resume">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-resume')">✕</button>
+    <h2>📖 Résumeur IA</h2>
+    <p class="modal-sub">Résume et explique n'importe quel texte en quelques secondes</p>
+    <div id="resume-form">
+      <div class="form-group">
+        <label>Type de résumé</label>
+        <select id="resume-type">
+          <option value="court">Court (5-6 lignes)</option>
+          <option value="moyen" selected>Moyen (1 paragraphe)</option>
+          <option value="détaillé">Détaillé avec points clés</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Texte à résumer</label><textarea rows="7" placeholder="Collez votre texte ici..." id="resume-text"></textarea></div>
+      <button class="form-submit" id="resume-submit-btn" onclick="generateResume()">⚡ Résumer</button>
+    </div>
+    <div class="loading" id="resume-loading"><div class="spinner"></div><span>Analyse en cours...</span></div>
+    <div class="result-box" id="resume-result">
+      <div class="result-header">
+        <h4>✓ Résumé prêt</h4>
+        <button class="copy-btn" onclick="copyResult('resume-result-content')">📋 Copier</button>
+      </div>
+      <div class="result-content" id="resume-result-content"></div>
+      <button class="form-submit" style="margin-top:16px" onclick="resetTool('resume')">🔄 Nouveau résumé</button>
+    </div>
+  </div>
+</div>
+
+<!-- ASSISTANT MODAL -->
+<div class="modal-overlay" id="modal-assistant">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-assistant')">✕</button>
+    <h2>🤖 Assistant IA</h2>
+    <p class="modal-sub">Posez n'importe quelle question — votre assistant intelligent</p>
+    <div id="assistant-chat" style="max-height:340px; overflow-y:auto; margin-bottom:16px; display:flex; flex-direction:column; gap:12px;"></div>
+    <div style="display:flex; gap:10px;">
+      <input type="text" id="assistant-input" placeholder="Posez votre question..." style="flex:1; background:var(--bg3); border:1px solid var(--border); border-radius:10px; padding:12px 16px; color:var(--text); font-family:'DM Sans',sans-serif; font-size:0.9rem; outline:none;" onkeydown="if(event.key==='Enter') sendMessage()">
+      <button class="btn-primary" style="padding:12px 18px; white-space:nowrap;" onclick="sendMessage()">Envoyer</button>
+    </div>
+  </div>
+</div>
+
+<!-- PAY MODAL -->
+<div class="modal-overlay" id="modal-pay">
+  <div class="modal" style="max-width:480px">
+    <button class="modal-close" onclick="closeModal('modal-pay')">✕</button>
+    <h2>💳 Finaliser l'abonnement</h2>
+    <p class="modal-sub" id="pay-plan-name"></p>
+    <div class="om-card" style="margin-bottom:20px">
+      <div class="om-steps">
+        <div class="om-step"><span class="om-step-num">1</span> Composez *144#</div>
+        <div class="om-step"><span class="om-step-num">2</span> Choisir "Transfert"</div>
+        <div class="om-step"><span class="om-step-num">3</span> Numéro : 629 839 854</div>
+        <div class="om-step"><span class="om-step-num">4</span> <span id="pay-amount-step">Montant</span></div>
+      </div>
+      <div class="om-whatsapp">
+        <span class="wa-icon">💬</span>
+        <p>Après paiement, envoyez le screenshot sur WhatsApp au <a href="https://wa.me/224629839854" target="_blank">+224 629 839 854</a></p>
+      </div>
+    </div>
+    <a href="https://wa.me/224629839854" target="_blank" class="btn-primary" style="display:flex; justify-content:center; text-decoration:none;">💬 Contacter sur WhatsApp →</a>
+  </div>
+</div>
+
+<!-- CONTACT MODAL -->
+<div class="modal-overlay" id="modal-contact">
+  <div class="modal" style="max-width:480px">
+    <button class="modal-close" onclick="closeModal('modal-contact')">✕</button>
+    <h2>📩 Demande Institutionnelle</h2>
+    <p class="modal-sub">Pour les écoles, ONG et entreprises</p>
+    <div class="form-group"><label>Organisation</label><input type="text" placeholder="Nom de l'école / entreprise"></div>
+    <div class="form-group"><label>Contact</label><input type="text" placeholder="Nom & prénom du responsable"></div>
+    <div class="form-group"><label>Téléphone / WhatsApp</label><input type="text" placeholder="+224 ..."></div>
+    <div class="form-group"><label>Besoins</label><textarea rows="3" placeholder="Décrivez vos besoins..."></textarea></div>
+    <a href="https://wa.me/224629839854?text=Bonjour%2C%20je%20souhaite%20un%20devis%20institutionnel" target="_blank" class="btn-primary" style="display:flex; justify-content:center; text-decoration:none; margin-top:8px;">💬 Envoyer sur WhatsApp →</a>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- JAVASCRIPT -->
+<!-- ============================================================ -->
+<script>
+const API_URL = "https://api.anthropic.com/v1/messages";
+const MODEL = "claude-sonnet-4-20250514";
+
+// ===== MODAL MANAGEMENT =====
+function openModal(id) {
+  document.getElementById('modal-' + id).classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(id) {
+  document.getElementById(id).classList.remove('active');
+  document.body.style.overflow = '';
+}
+function openAuth() { openModal('auth'); }
+function openTool(name) { openModal(name); }
+function openPay(plan) {
+  document.getElementById('pay-plan-name').textContent = plan;
+  document.getElementById('pay-amount-step').textContent = plan.includes('55') ? 'Montant : 55 000 FG' : 'Montant : 75 000 FG';
+  openModal('pay');
+}
+function openContact() { openModal('contact'); }
+
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) closeModal(overlay.id);
+  });
+});
+
+// ===== AUTH =====
+function switchTab(tab) {
+  document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-login').style.display = 'none';
+  document.getElementById('tab-register').style.display = 'none';
+  if (tab === 'login') {
+    document.querySelectorAll('.auth-tab')[0].classList.add('active');
+    document.getElementById('tab-login').style.display = 'block';
+  } else {
+    document.querySelectorAll('.auth-tab')[1].classList.add('active');
+    document.getElementById('tab-register').style.display = 'block';
+  }
+}
+
+function doLogin() {
+  const email = document.getElementById('login-email').value;
+  if (!email) { alert('Veuillez entrer votre email'); return; }
+  alert('✓ Connexion simulée ! Intégrez votre backend pour une vraie authentification.');
+  closeModal('modal-auth');
+}
+
+function doRegister() {
+  const fname = document.getElementById('reg-fname').value;
+  if (!fname) { alert('Veuillez remplir tous les champs'); return; }
+  alert('✓ Compte créé ! Bienvenue ' + fname + ' 🎉\nIntégrez votre backend pour une vraie inscription.');
+  closeModal('modal-auth');
+}
+
+// ===== API CALL =====
+async function callClaude(prompt) {
+  const res = await fetch(API_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      model: MODEL,
+      max_tokens: 1000,
+      messages: [{ role: 'user', content: prompt }]
+    })
+  });
+  const data = await res.json();
+  if (data.error) throw new Error(data.error.message);
+  return data.content.map(b => b.text || '').join('');
+}
+
+function showLoading(tool) {
+  document.getElementById(tool + '-form').style.display = 'none';
+  document.getElementById(tool + '-loading').classList.add('active');
+  document.getElementById(tool + '-result').classList.remove('active');
+}
+
+function showResult(tool, text) {
+  document.getElementById(tool + '-loading').classList.remove('active');
+  document.getElementById(tool + '-result').classList.add('active');
+  document.getElementById(tool + '-result-content').textContent = text;
+}
+
+function resetTool(tool) {
+  document.getElementById(tool + '-form').style.display = '';
+  document.getElementById(tool + '-result').classList.remove('active');
+}
+
+function copyResult(id) {
+  const text = document.getElementById(id).textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = event.target;
+    btn.textContent = '✓ Copié !';
+    setTimeout(() => btn.textContent = '📋 Copier', 2000);
+  });
+}
+
+// ===== QUIZ =====
+async function generateQuiz() {
+  const subject = document.getElementById('quiz-subject').value;
+  if (!subject) { alert('Veuillez entrer une matière'); return; }
+  const level = document.getElementById('quiz-level').value;
+  const count = document.getElementById('quiz-count').value;
+  const type = document.getElementById('quiz-type').value;
+  const instructions = document.getElementById('quiz-instructions').value;
+
+  showLoading('quiz');
+
+  const prompt = `Génère un quiz de ${count} questions en ${type} sur le sujet "${subject}" pour le niveau ${level}.
+${instructions ? 'Instructions supplémentaires : ' + instructions : ''}
+
+Format chaque question clairement avec:
+- La question numérotée
+- Les options de réponse (A, B, C, D pour QCM)
+- La bonne réponse indiquée à la fin de chaque question
+
+Réponds entièrement en français. Sois précis et pédagogique.`;
+
+  try {
+    const result = await callClaude(prompt);
+    showResult('quiz', result);
+  } catch (e) {
+    document.getElementById('quiz-loading').classList.remove('active');
+    document.getElementById('quiz-form').style.display = '';
+    alert('Erreur : ' + e.message);
+  }
+}
+
+// ===== COURS =====
+async function generateCours() {
+  const subject = document.getElementById('cours-subject').value;
+  if (!subject) { alert('Veuillez entrer un sujet'); return; }
+  const level = document.getElementById('cours-level').value;
+  const length = document.getElementById('cours-length').value;
+  const instructions = document.getElementById('cours-instructions').value;
+
+  showLoading('redacteur');
+
+  const lengthMap = { court: 'un résumé concis (3-4 paragraphes)', moyen: 'un cours standard bien structuré (6-8 paragraphes)', long: 'un cours détaillé et complet (10-15 paragraphes avec exemples)' };
+
+  const prompt = `Rédige ${lengthMap[length]} sur le sujet "${subject}" pour le niveau ${level}.
+
+Structure le cours avec :
+1. Introduction et objectifs
+2. Développement structuré avec sous-parties titrées
+3. Exemples concrets adaptés au contexte africain/guinéen si pertinent
+4. Conclusion / Résumé
+5. (optionnel) Exercices d'application
+
+${instructions ? 'Instructions : ' + instructions : ''}
+
+Rédige entièrement en français, avec un langage clair et pédagogique.`;
+
+  try {
+    const result = await callClaude(prompt);
+    showResult('redacteur', result);
+  } catch (e) {
+    document.getElementById('redacteur-loading').classList.remove('active');
+    document.getElementById('redacteur-form').style.display = '';
+    alert('Erreur : ' + e.message);
+  }
+}
+
+// ===== FICHE =====
+async function generateFiche() {
+  const subject = document.getElementById('fiche-subject').value;
+  if (!subject) { alert('Veuillez entrer un sujet'); return; }
+  const level = document.getElementById('fiche-level').value;
+  const type = document.getElementById('fiche-type').value;
+
+  showLoading('fiches');
+
+  const prompt = `Crée une fiche de ${type} sur "${subject}" pour le niveau ${level}.
+
+La fiche doit être :
+- Condensée et facile à mémoriser
+- Organisée avec des titres clairs (⭐ Points clés, 📌 Définitions, 📅 Dates importantes si applicable, 💡 À retenir)
+- Idéale pour réviser rapidement avant un examen
+
+Rédige en français, de façon claire et structurée.`;
+
+  try {
+    const result = await callClaude(prompt);
+    showResult('fiches', result);
+  } catch (e) {
+    document.getElementById('fiches-loading').classList.remove('active');
+    document.getElementById('fiches-form').style.display = '';
+    alert('Erreur : ' + e.message);
+  }
+}
+
+// ===== SCRIPT =====
+async function generateScript() {
+  const subject = document.getElementById('script-subject').value;
+  if (!subject) { alert('Veuillez entrer un sujet'); return; }
+  const platform = document.getElementById('script-platform').value;
+  const duration = document.getElementById('script-duration').value;
+  const tone = document.getElementById('script-tone').value;
+
+  showLoading('script');
+
+  const prompt = `Écris un script ${tone.toLowerCase()} pour une vidéo ${platform} de ${duration} sur : "${subject}".
+
+Structure le script avec :
+[ACCROCHE] - Les premières secondes cruciales
+[CONTENU PRINCIPAL] - Le développement
+[CALL TO ACTION] - Ce que doit faire le spectateur
+
+Adapte le ton pour un public guinéen/africain francophone. Utilise des expressions naturelles et engageantes.
+Indique les durées approximatives de chaque partie.`;
+
+  try {
+    const result = await callClaude(prompt);
+    showResult('script', result);
+  } catch (e) {
+    document.getElementById('script-loading').classList.remove('active');
+    document.getElementById('script-form').style.display = '';
+    alert('Erreur : ' + e.message);
+  }
+}
+
+// ===== TRADUCTEUR =====
+async function generateTraduction() {
+  const text = document.getElementById('trad-text').value;
+  if (!text.trim()) { alert('Veuillez entrer un texte à traduire'); return; }
+  const from = document.getElementById('trad-from').value;
+  const to = document.getElementById('trad-to').value;
+
+  showLoading('traducteur');
+
+  const prompt = `Traduis le texte suivant du ${from} vers le ${to}.
+
+Texte à traduire :
+"${text}"
+
+Fournis :
+1. La traduction précise
+2. (Si utile) Notes sur des expressions culturelles ou difficultés de traduction
+3. (Si demandé en Fula/Peul) Une translittération phonétique
+
+Sois fidèle au sens original.`;
+
+  try {
+    const result = await callClaude(prompt);
+    showResult('traducteur', result);
+  } catch (e) {
+    document.getElementById('traducteur-loading').classList.remove('active');
+    document.getElementById('traducteur-form').style.display = '';
+    alert('Erreur : ' + e.message);
+  }
+}
+
+// ===== CV =====
+async function generateCV() {
+  const name = document.getElementById('cv-name').value;
+  const job = document.getElementById('cv-job').value;
+  const info = document.getElementById('cv-info').value;
+  const type = document.getElementById('cv-type').value;
+
+  if (!name || !job) { alert('Veuillez remplir votre nom et le poste visé'); return; }
+
+  showLoading('cv');
+
+  const prompt = `Génère un ${type} professionnel en français pour :
+
+Nom : ${name}
+Poste visé : ${job}
+Informations : ${info}
+
+${type === 'CV' ? `Formate le CV avec ces sections :
+- En-tête (Nom, Contact)
+- Profil professionnel (2-3 phrases)
+- Expériences professionnelles
+- Formation / Diplômes
+- Compétences
+- Langues
+Adapte pour le contexte guinéen/africain.` : `Rédige une ${type} professionnelle, convaincante et adaptée au contexte guinéen/africain. Longueur : 3-4 paragraphes.`}`;
+
+  try {
+    const result = await callClaude(prompt);
+    showResult('cv', result);
+  } catch (e) {
+    document.getElementById('cv-loading').classList.remove('active');
+    document.getElementById('cv-form').style.display = '';
+    alert('Erreur : ' + e.message);
+  }
+}
+
+// ===== RESUME =====
+async function generateResume() {
+  const text = document.getElementById('resume-text').value;
+  if (!text.trim()) { alert('Veuillez entrer un texte à résumer'); return; }
+  const type = document.getElementById('resume-type').value;
+
+  showLoading('resume');
+
+  const prompt = `Fais un résumé ${type} du texte suivant en français :
+
+"${text}"
+
+${type === 'détaillé' ? 'Inclure : résumé principal + liste des points clés + idées importantes à retenir' : 'Résume de façon claire et concise en gardant l\'essentiel.'}`;
+
+  try {
+    const result = await callClaude(prompt);
+    showResult('resume', result);
+  } catch (e) {
+    document.getElementById('resume-loading').classList.remove('active');
+    document.getElementById('resume-form').style.display = '';
+    alert('Erreur : ' + e.message);
+  }
+}
+
+// ===== ASSISTANT CHAT =====
+let chatHistory = [];
+
+function addChatMessage(role, text) {
+  const chat = document.getElementById('assistant-chat');
+  const div = document.createElement('div');
+  div.style.cssText = `padding:12px 16px; border-radius:12px; font-size:0.88rem; line-height:1.6; max-width:90%; ${
+    role === 'user'
+      ? 'background:rgba(245,166,35,0.12); border:1px solid rgba(245,166,35,0.2); align-self:flex-end; margin-left:auto;'
+      : 'background:var(--bg3); border:1px solid var(--border); align-self:flex-start;'
+  }`;
+  div.textContent = (role === 'assistant' ? '🤖 ' : '👤 ') + text;
+  chat.appendChild(div);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+async function sendMessage() {
+  const input = document.getElementById('assistant-input');
+  const msg = input.value.trim();
+  if (!msg) return;
+
+  addChatMessage('user', msg);
+  input.value = '';
+
+  chatHistory.push({ role: 'user', content: msg });
+
+  // Typing indicator
+  const chat = document.getElementById('assistant-chat');
+  const typing = document.createElement('div');
+  typing.id = 'typing';
+  typing.style.cssText = 'padding:12px 16px; border-radius:12px; background:var(--bg3); border:1px solid var(--border); font-size:0.88rem; color:var(--muted); align-self:flex-start;';
+  typing.textContent = '🤖 En train d\'écrire...';
+  chat.appendChild(typing);
+  chat.scrollTop = chat.scrollHeight;
+
+  try {
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: MODEL,
+        max_tokens: 1000,
+        system: "Tu es EduCraft AI, un assistant pédagogique intelligent pour la communauté guinéenne. Tu aides les élèves, enseignants et créateurs de contenu. Tu réponds toujours en français de façon claire, bienveillante et adaptée au contexte africain. Tu es expert en éducation, création de contenu et rédaction professionnelle.",
+        messages: chatHistory
+      })
+    });
+    const data = await res.json();
+    const reply = data.content.map(b => b.text || '').join('');
+
+    typing.remove();
+    chatHistory.push({ role: 'assistant', content: reply });
+    addChatMessage('assistant', reply);
+  } catch (e) {
+    typing.remove();
+    addChatMessage('assistant', 'Désolé, une erreur s\'est produite. Vérifiez votre connexion.');
+  }
+}
+
+// Init assistant with welcome message
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    const chat = document.getElementById('assistant-chat');
+    if (chat && chat.children.length === 0) {
+      addChatMessage('assistant', 'Bonjour ! Je suis EduCraft AI, votre assistant intelligent. Comment puis-je vous aider aujourd\'hui ? 🎓');
+    }
+  }, 100);
+});
+
+// ===== SCROLL REVEAL =====
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
 </body>
 </html>
 
